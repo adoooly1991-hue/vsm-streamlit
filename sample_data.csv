@@ -1,0 +1,4 @@
+process_id,process_name,process_type,ct_sec,units_per_period,wip_in_units,defect_pct,rework_pct,downtime_pct,safety_incidents,push_pull,co_freq_per_shift,co_time_min,operators,distance_m,layout_moves,walk_m_per_unit,approval_delays_min,waiting_starved_pct
+P1,Receiving,Manual,70,,400,5,13,7,0,Pull,1,10,3,30,1,10,2,5
+P2,Inspection,Manual,90,,250,4,6,5,0,Push,2,15,2,10,1,25,0,12
+P3,Pick & Pack,Manual,60,,300,6,10,8,1,Pull,3,20,4,120,3,35,10,18

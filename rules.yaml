@@ -1,0 +1,57 @@
+wastes:
+  defects:
+    questions:
+      - id: d1
+        text: "Is first-pass yield below 97% at this step?"
+        type: boolean
+        weight: 3
+      - id: d2
+        text: "Is rework > 5% of throughput?"
+        type: boolean
+        weight: 2
+  waiting:
+    questions:
+      - id: w1
+        text: "Is average queue time > cycle time?"
+        type: boolean
+        weight: 3
+      - id: w2
+        text: "Is starved/blocked time > 10% of available time?"
+        type: boolean
+        weight: 2
+  overproduction:
+    questions:
+      - id: op1
+        text: "Do you produce to forecast without a pull signal?"
+        type: boolean
+        weight: 3
+  transportation:
+    questions:
+      - id: t1
+        text: "Do items travel more than 50 meters?"
+        type: boolean
+        weight: 2
+  inventory:
+    questions:
+      - id: inv1
+        text: "Is WIP buffer greater than target hours of demand?"
+        type: boolean
+        weight: 3
+  motion:
+    questions:
+      - id: m1
+        text: "Do operators walk more than 20 meters per unit on average?"
+        type: boolean
+        weight: 2
+  overprocessing:
+    questions:
+      - id: opr1
+        text: "Are there redundant inspections or double data entry?"
+        type: boolean
+        weight: 2
+  talent:
+    questions:
+      - id: tal1
+        text: "Are suggestions implemented less than 20% of the time?"
+        type: boolean
+        weight: 2

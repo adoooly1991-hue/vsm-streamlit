@@ -1,12 +1,19 @@
-# Automated VSM (v2 with flow lanes, confidence, PDF)
+# Automated VSM (v3)
 
-Enhancements:
-1. PPTX now includes Material & Information flow lanes with arrows/icons for Push/Pull.
-2. Waste scoring table includes a 'confidence' column.
-3. PDF generator using ReportLab replicates template layout for process data boxes.
+**What’s new**
+- PPTX exports with **Material & Information lanes**, arrows, and **Pull (Kanban) icons**.
+- Waste scores now include a **confidence** level.
+- PDF export with **template-style** process data boxes.
 
-Run:
-```bash
+## Run locally
+```
 pip install -r requirements.txt
 streamlit run app.py
 ```
+
+## Deploy to Streamlit Cloud
+- Main file: `app.py`
+- Python 3.10+
+
+## CSV schema
+See `sample_data.csv`. One row per process step.
