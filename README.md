@@ -1,19 +1,11 @@
-# Automated VSM (v3)
+# VSM Observation Engine — Manual Entry (No CSV)
 
-**What’s new**
-- PPTX exports with **Material & Information lanes**, arrows, and **Pull (Kanban) icons**.
-- Waste scores now include a **confidence** level.
-- PDF export with **template-style** process data boxes.
+- Add up to 10 process steps via forms.
+- Fields mirror the OE template data boxes.
+- Get ranked observations, plus PPTX/PDF exports.
 
-## Run locally
+## Run
 ```
 pip install -r requirements.txt
 streamlit run app.py
 ```
-
-## Deploy to Streamlit Cloud
-- Main file: `app.py`
-- Python 3.10+
-
-## CSV schema
-See `sample_data.csv`. One row per process step.

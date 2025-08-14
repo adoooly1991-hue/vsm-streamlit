@@ -1,0 +1,54 @@
+meta:
+  version: 1
+  style: "Concise, objective, factory-assessment tone. Avoid blame; focus on facts and impact."
+thresholds:
+  defect_pct_high: 3.0
+  rework_pct_high: 5.0
+  downtime_pct_high: 10.0
+  waiting_ct_ratio_high: 1.0
+  wip_units_high: 100
+  changeover_time_min_high: 30
+  changeover_freq_per_shift_high: 2
+  safety_incidents_high: 1
+  walk_m_per_unit_high: 20
+waste_templates:
+  defects:
+    high:
+      - "At {step_name}, the first-pass yield gap is evident: defects at {defect_pct:.1f}% (>{defect_target:.1f}%). This is driving rework loops and latent WIP between {prev_step} → {step_name}."
+    medium:
+      - "Defects at {step_name} near the threshold ({defect_pct:.1f}% vs {defect_target:.1f}%). Tighten SPC and error-proofing to prevent drift."
+  waiting:
+    high:
+      - "Queueing in front of {step_name} is significant: estimated waiting {wait_min:.0f} min exceeds cycle time ({ct_sec:.0f} s). This indicates a bottleneck or flow imbalance."
+    medium:
+      - "Intermittent queues observed before {step_name}; monitor for starved/blocked intervals and re-balance as needed."
+  inventory:
+    high:
+      - "Excess WIP ({wip_units:.0f} units) between {prev_step} and {step_name} ties up cash and space, raising handling risk and aging exposure."
+    medium:
+      - "WIP buffer ahead of {step_name} exceeds target. Right-size buffer via pull signals and leveled release."
+  overproduction:
+    high:
+      - "{step_name} operates in push mode without a consumption signal, increasing FG/WIP exposure and masking process issues."
+    medium:
+      - "Push scheduling observed at {step_name}. Introduce pull/CONWIP to align output to takt."
+  transportation:
+    high:
+      - "Material handling intensity is elevated around {step_name} (moves={layout_moves}, distance≈{distance_m} m). Each move adds non-VA time and damage risk."
+  motion:
+    high:
+      - "Operator motion at {step_name} exceeds ergonomic targets (~{walk_m_per_unit} m/unit). Re-layout point-of-use tools and parts to reduce travel."
+  overprocessing:
+    high:
+      - "Non–value-add steps detected at {step_name} (redundant checks/data entry). Streamline to first-time-right checks only."
+  talent:
+    high:
+      - "Non-utilized talent at {step_name}: issues are solved locally without feedback loops; suggestions not institutionalized."
+observation_wrappers:
+  high_conf: "Data shows {text}"
+  med_conf:  "Data and operator input suggest {text}"
+  low_conf:  "Based on team input, {text}"
+ranking_weights:
+  severity: 0.6
+  recurrence: 0.25
+  detection: 0.15
