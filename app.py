@@ -97,20 +97,33 @@ if st.button("Generate observations"):
 
         # Export buttons
         from report import export_observations_pptx, export_observations_pdf
-        if st.button("Export PPTX"):
-        # Build per-step top-2 wastes map for the Current State Map slide (auto-assigned)
-        perstep_top2 = {}
-        from engine import score_wastes
-        for s in steps:
-            w = score_wastes(s, templates["thresholds"])
-            # sort wastes by score desc and pick top 2
-            ranked = sorted(list(w["scores"].items()), key=lambda kv: kv[1], reverse=True)
-            top2 = [(name, score) for name, score in ranked if score>0][:2]
-            perstep_top2[s.id] = top2
+        
+if st.button("Export PPTX"):
+    # Build per-step top-2 wastes map for the Current State Map slide (auto-assigned)
+    perstep_top2 = {}
+    from engine import score_wastes
+    for s in steps:
+        w = score_wastes(s, templates["thresholds"])
+        # sort wastes by score desc and pick top 2
+        ranked = sorted(list(w["scores"].items()), key=lambda kv: kv[1], reverse=True)
+        top2 = [(name, score) for name, score in ranked if score > 0][:2]
+        perstep_top2[s.id] = top2
 
-            path = export_observations_pptx(obs, "observations_manual.pptx", steps=steps, perstep_top2=perstep_top2, spacing_mode=spacing_mode, ct_eff_map=ct_eff_map)
-            with open(path, "rb") as f:
-                st.download_button("Download PPTX", f, file_name="observations_manual.pptx")
+    # Compute effective CT per step for spacing (same logic as lead-time calc)
+    ct_eff_map = {sid: result["by_step"].get(sid, {}).get("ct_eff_sec", 0.0) for sid in result["by_step"].keys()}
+
+    path = export_observations_pptx(
+        obs,
+        "observations_manual.pptx",
+        steps=steps,
+        perstep_top2=perstep_top2,
+        spacing_mode=spacing_mode,
+        ct_eff_map=ct_eff_map
+    )
+    st.success(f"PPTX exported: {path}")
+    with open(path, "rb") as f:
+        st.download_button("Download PPTX", f, file_name="observations_manual.pptx")
+
         if st.button("Export PDF"):
             path = export_observations_pdf(obs, "observations_manual.pdf")
             with open(path, "rb") as f:
